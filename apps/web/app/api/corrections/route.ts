@@ -3,18 +3,18 @@ import { NextResponse } from "next/server";
 import { createAuthAdapter } from "@repo/auth";
 import { saveCorrection } from "@repo/db";
 
-function buildLineDiff(before: string, after: string): string {
+function createLineDiff(before: string, after: string): string {
   const beforeLines = before.split("\n");
   const afterLines = after.split("\n");
-  const longest = Math.max(beforeLines.length, afterLines.length);
   const rows: string[] = [];
+  const lineCount = Math.max(beforeLines.length, afterLines.length);
 
-  for (let index = 0; index < longest; index += 1) {
-    const oldLine = beforeLines[index] ?? "";
-    const newLine = afterLines[index] ?? "";
-    if (oldLine !== newLine) {
-      rows.push(`- ${oldLine}`);
-      rows.push(`+ ${newLine}`);
+  for (let index = 0; index < lineCount; index += 1) {
+    const previous = beforeLines[index] ?? "";
+    const current = afterLines[index] ?? "";
+    if (previous !== current) {
+      rows.push(`- ${previous}`);
+      rows.push(`+ ${current}`);
     }
   }
 
@@ -22,20 +22,17 @@ function buildLineDiff(before: string, after: string): string {
 }
 
 export async function POST(request: Request) {
-  const auth = createAuthAdapter();
-  const user = await auth.getCurrentUser();
-  const body = (await request.json()) as {
-    draftId?: string;
-    before?: string;
-    after?: string;
-  };
+  const body = (await request.json()) as { draftId?: string; before?: string; after?: string };
 
   if (!body.draftId || typeof body.before !== "string" || typeof body.after !== "string") {
     return NextResponse.json({ error: "draftId, before, after are required" }, { status: 400 });
   }
 
-  const diff = buildLineDiff(body.before, body.after);
-  const saved = await saveCorrection({
+  const auth = createAuthAdapter();
+  const user = await auth.getCurrentUser();
+  const diff = createLineDiff(body.before, body.after);
+
+  const correction = await saveCorrection({
     userId: user.id,
     draftId: body.draftId,
     before: body.before,
@@ -43,5 +40,5 @@ export async function POST(request: Request) {
     diff
   });
 
-  return NextResponse.json({ correctionId: saved.id, diff: saved.diff }, { status: 201 });
+  return NextResponse.json({ correctionId: correction.id, diff: correction.diff }, { status: 201 });
 }

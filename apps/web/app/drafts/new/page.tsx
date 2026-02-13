@@ -1,13 +1,13 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { type FormEvent, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 export default function NewDraftPage() {
-  const [result, setResult] = useState<string>("");
+  const [draft, setDraft] = useState("");
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -17,16 +17,15 @@ export default function NewDraftPage() {
 
     const response = await fetch("/api/generate", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify({ notes, formInput })
     });
-
-    const data = await response.json();
-    setResult(response.ok ? data.draft : data.error ?? "שגיאה");
+    const payload = (await response.json()) as { error?: string; draft?: string };
+    setDraft(response.ok ? payload.draft ?? "" : payload.error ?? "שגיאה");
   }
 
   return (
-    <main className="container mx-auto max-w-2xl p-6 space-y-4">
+    <main className="container mx-auto max-w-2xl space-y-4 p-6">
       <h1 className="text-2xl font-semibold">יצירת טיוטה חדשה</h1>
       <form onSubmit={onSubmit} className="space-y-4">
         <div className="space-y-2">
@@ -39,7 +38,7 @@ export default function NewDraftPage() {
         </div>
         <Button type="submit">צור טיוטה</Button>
       </form>
-      {result ? <pre className="rounded border p-3 text-xs whitespace-pre-wrap">{result}</pre> : null}
+      {draft ? <pre className="whitespace-pre-wrap rounded border p-3 text-xs">{draft}</pre> : null}
     </main>
   );
 }

@@ -11,6 +11,9 @@
     "test": "echo 'No tests for @repo/ai'",
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "@repo/db": "workspace:*"
+  },
   "devDependencies": {
     "typescript": "^5.7.2"
   }

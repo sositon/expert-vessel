@@ -4,18 +4,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function DashboardPage() {
   return (
-    <main className="container mx-auto max-w-4xl p-6 space-y-6">
+    <main className="container mx-auto max-w-4xl space-y-6 p-6">
       <h1 className="text-3xl font-bold">לוח מחוונים</h1>
       <Card>
         <CardHeader>
-          <CardTitle>סטטוס מערכת</CardTitle>
+          <CardTitle>פעולות מהירות</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-2 text-sm">
-          <p>זהו מסך placeholder ראשוני לניהול ארכיון, כלי שיט וטיוטות.</p>
-          <ul className="list-disc pr-6 space-y-1">
-            <li><Link className="text-primary underline" href="/archives/upload">העלאת ארכיון</Link></li>
-            <li><Link className="text-primary underline" href="/vessels/new">יצירת כלי שיט</Link></li>
-            <li><Link className="text-primary underline" href="/drafts/new">יצירת טיוטה</Link></li>
+        <CardContent>
+          <ul className="list-disc space-y-2 pr-6">
+            <li><Link href="/archives/upload" className="text-primary underline">העלאת PDF לארכיון</Link></li>
+            <li><Link href="/vessels/new" className="text-primary underline">יצירת כלי שיט חדש</Link></li>
+            <li><Link href="/drafts/new" className="text-primary underline">יצירת טיוטה חדשה</Link></li>
           </ul>
         </CardContent>
       </Card>
