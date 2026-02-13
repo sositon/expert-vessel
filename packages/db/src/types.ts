@@ -6,6 +6,14 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
+export interface ProfileRow {
+  id: string;
+  user_id: string;
+  display_name: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface ArchiveRow {
   id: string;
   user_id: string;
@@ -31,9 +39,42 @@ export interface DocumentChunkRow {
   updated_at: string;
 }
 
+export interface VesselRow {
+  id: string;
+  user_id: string;
+  archive_id: string | null;
+  name: string;
+  metadata: Json;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CorrectionRow {
+  id: string;
+  user_id: string;
+  vessel_id: string | null;
+  archive_id: string | null;
+  correction_text: string;
+  embedding: number[] | null;
+  metadata: Json;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Database {
   public: {
     Tables: {
+      profiles: {
+        Row: ProfileRow;
+        Insert: {
+          id?: string;
+          user_id: string;
+          display_name?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<ProfileRow>;
+      };
       archives: {
         Row: ArchiveRow;
         Insert: {
@@ -64,6 +105,34 @@ export interface Database {
           updated_at?: string;
         };
         Update: Partial<DocumentChunkRow>;
+      };
+      vessels: {
+        Row: VesselRow;
+        Insert: {
+          id?: string;
+          user_id: string;
+          archive_id?: string | null;
+          name: string;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<VesselRow>;
+      };
+      corrections: {
+        Row: CorrectionRow;
+        Insert: {
+          id?: string;
+          user_id: string;
+          vessel_id?: string | null;
+          archive_id?: string | null;
+          correction_text: string;
+          embedding?: number[] | null;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<CorrectionRow>;
       };
     };
     Functions: {

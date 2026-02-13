@@ -9,7 +9,7 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "echo 'No lint configured for @repo/scoring'",
-    "test": "echo 'No tests configured for @repo/scoring'"
+    "test": "echo \"No unit tests for this package\""
   },
   "devDependencies": {
     "typescript": "^5.7.3"

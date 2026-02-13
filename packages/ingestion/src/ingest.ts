@@ -15,6 +15,14 @@ interface IngestInput {
   title?: string;
 }
 
+export interface IngestOutput {
+  docId: string;
+  chunksInserted: number;
+  extractedText: string;
+  structureJson: Json;
+  variableCandidates: string[];
+}
+
 const inferVariableCandidates = (text: string): string[] => {
   const matches = text.match(/[א-ת]{3,30}\s*:\s*[^\n]+/g) ?? [];
   return [...new Set(matches.map((line) => line.split(':')[0]?.trim()).filter(Boolean))] as string[];
@@ -29,7 +37,7 @@ const createStructureJson = (chunks: ReturnType<typeof chunkHebrewDocument>): Js
 export const ingestPdfDocument = async (
   client: SupabaseClient<Database>,
   input: IngestInput,
-): Promise<{ docId: string; chunksInserted: number }> => {
+): Promise<IngestOutput> => {
   const extractedText = await extractPdfText(input.pdfPath);
   const normalizedText = normalizeHebrewText(extractedText);
   const units = chunkHebrewDocument(normalizedText);
@@ -42,7 +50,7 @@ export const ingestPdfDocument = async (
     source_url: input.pdfPath,
   });
 
-  const structure = createStructureJson(units);
+  const structureJson = createStructureJson(units);
   const variableCandidates = inferVariableCandidates(normalizedText);
 
   const chunkPayload: InsertChunkInput[] = units.map((unit, index) => ({
@@ -55,7 +63,7 @@ export const ingestPdfDocument = async (
     embedding: embeddings[index] ?? [],
     metadata: {
       ...unit.metadata,
-      structure,
+      structureJson,
       variableCandidates,
     },
     doc_type: input.docType,
@@ -66,5 +74,8 @@ export const ingestPdfDocument = async (
   return {
     docId: archive.id,
     chunksInserted: chunkPayload.length,
+    extractedText: normalizedText,
+    structureJson,
+    variableCandidates,
   };
 };
