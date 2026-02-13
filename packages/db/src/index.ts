@@ -5,6 +5,7 @@ export type RetrievalContext = {
 
 export type CorrectionRecord = {
   id: string;
+  userId: string;
   draftId: string;
   before: string;
   after: string;
@@ -26,6 +27,7 @@ export async function retrieveContextForDraftGeneration(
 }
 
 export async function saveCorrection(input: {
+  userId: string;
   draftId: string;
   before: string;
   after: string;

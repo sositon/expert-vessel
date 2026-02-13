@@ -11,10 +11,10 @@
     "test": "echo 'No tests for @apps/web'"
   },
   "dependencies": {
-    "@packages/ai": "workspace:*",
-    "@packages/auth": "workspace:*",
-    "@packages/db": "workspace:*",
-    "@packages/ingestion": "workspace:*",
+    "@repo/ai": "workspace:*",
+    "@repo/auth": "workspace:*",
+    "@repo/db": "workspace:*",
+    "@repo/ingestion": "workspace:*",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-select": "^2.1.1",
     "@tiptap/extension-document": "^2.10.3",

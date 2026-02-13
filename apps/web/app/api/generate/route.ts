@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
-import { generateDraft } from "@packages/ai";
-import { createAuthAdapter } from "@packages/auth";
-import { retrieveContextForDraftGeneration } from "@packages/db";
+import { generateDraft } from "@repo/ai";
+import { createAuthAdapter } from "@repo/auth";
+import { retrieveContextForDraftGeneration } from "@repo/db";
 
 export async function POST(request: Request) {
   const auth = createAuthAdapter();

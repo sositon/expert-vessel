@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { saveCorrection } from "@packages/db";
+import { createAuthAdapter } from "@repo/auth";
+import { saveCorrection } from "@repo/db";
 
 function buildLineDiff(before: string, after: string): string {
   const beforeLines = before.split("\n");
@@ -21,6 +22,8 @@ function buildLineDiff(before: string, after: string): string {
 }
 
 export async function POST(request: Request) {
+  const auth = createAuthAdapter();
+  const user = await auth.getCurrentUser();
   const body = (await request.json()) as {
     draftId?: string;
     before?: string;
@@ -33,6 +36,7 @@ export async function POST(request: Request) {
 
   const diff = buildLineDiff(body.before, body.after);
   const saved = await saveCorrection({
+    userId: user.id,
     draftId: body.draftId,
     before: body.before,
     after: body.after,

@@ -1,4 +1,4 @@
-import type { RetrievalContext } from "@packages/db";
+import type { RetrievalContext } from "@repo/db";
 
 export async function generateDraft(context: RetrievalContext): Promise<string> {
   return [

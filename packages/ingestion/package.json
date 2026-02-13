@@ -1,5 +1,5 @@
 {
-  "name": "@packages/ingestion",
+  "name": "@repo/ingestion",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -7,8 +7,8 @@
   "types": "src/index.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "lint": "echo 'No lint for @packages/ingestion'",
-    "test": "echo 'No tests for @packages/ingestion'",
+    "lint": "echo 'No lint for @repo/ingestion'",
+    "test": "echo 'No tests for @repo/ingestion'",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

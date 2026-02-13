@@ -1,5 +1,5 @@
 {
-  "name": "@packages/db",
+  "name": "@repo/db",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -7,8 +7,8 @@
   "types": "src/index.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "lint": "echo 'No lint for @packages/db'",
-    "test": "echo 'No tests for @packages/db'",
+    "lint": "echo 'No lint for @repo/db'",
+    "test": "echo 'No tests for @repo/db'",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

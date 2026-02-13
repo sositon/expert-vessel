@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { createAuthAdapter } from "@packages/auth";
-import { ingestPdf } from "@packages/ingestion";
+import { createAuthAdapter } from "@repo/auth";
+import { ingestPdf } from "@repo/ingestion";
 
 export async function POST(request: Request) {
   const auth = createAuthAdapter();

@@ -1,5 +1,5 @@
 {
-  "name": "@packages/ai",
+  "name": "@repo/ai",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -7,8 +7,8 @@
   "types": "src/index.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "lint": "echo 'No lint for @packages/ai'",
-    "test": "echo 'No tests for @packages/ai'",
+    "lint": "echo 'No lint for @repo/ai'",
+    "test": "echo 'No tests for @repo/ai'",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
