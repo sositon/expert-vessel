@@ -9,7 +9,7 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "echo 'No lint configured for @repo/db'",
-    "test": "echo 'No tests configured for @repo/db'"
+    "test": "echo \"No unit tests for this package\""
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1"

@@ -52,7 +52,7 @@ const getClient = (): OpenAI => {
 
 export const generateSectionDraft = async (
   input: BuildPromptInput,
-  model = process.env.OPENAI_CHAT_MODEL ?? 'gpt-4o-mini',
+  model = process.env.OPENAI_GENERATION_MODEL ?? 'gpt-4o-mini',
 ): Promise<DraftOutput> => {
   const prompt = buildPrompt(input);
   const client = getClient();

@@ -1,6 +1,22 @@
 # expert-vessel
 
-Monorepo scaffolded for Turborepo + pnpm workspaces with apps in `apps/*` and shared packages in `packages/*`.
+Production-oriented monorepo scaffold for the Anti-Gravity Expertise Wrapper MVP.
+
+## Stack
+
+- Monorepo: pnpm workspaces + Turborepo
+- Web: Next.js 15 App Router + Tailwind + RTL Hebrew UI
+- Data: Supabase Postgres + pgvector with RLS
+- AI: OpenAI via environment variables
+
+## Repository layout
+
+- `apps/web`: Next.js application
+- `packages/db`: Supabase clients, types, and query helpers
+- `packages/ingestion`: ingestion CLI, Hebrew normalization, chunking, embeddings
+- `packages/ai`: prompt building and draft generation
+- `packages/scoring`: readiness scoring logic
+- `supabase/migrations`: database migrations
 
 ## Prerequisites
 
@@ -10,54 +26,56 @@ Monorepo scaffolded for Turborepo + pnpm workspaces with apps in `apps/*` and sh
 
 ## Setup
 
-1. Install dependencies:
+1. Install dependencies.
 
-   ```bash
-   pnpm install
-   ```
+```bash
+pnpm install
+```
 
-2. Copy environment variables and fill values:
+2. Copy env file and set values.
 
-   ```bash
-   cp .env.example .env
-   ```
+```bash
+cp .env.example .env
+```
 
-3. Start local Supabase services:
+3. Start local Supabase.
 
-   ```bash
-   supabase start
-   ```
+```bash
+supabase start
+```
 
-4. Reset local database (runs migrations/seed from a clean state):
+4. Reset and apply migrations.
 
-   ```bash
-   supabase db reset
-   ```
+```bash
+supabase db reset
+supabase migration up
+```
 
-5. Apply pending migrations:
+5. Run development tasks.
 
-   ```bash
-   supabase migration up
-   ```
+```bash
+pnpm dev
+```
 
-6. Run the web app in development mode:
+## Supabase migration notes
 
-   ```bash
-   pnpm dev
-   ```
+Run these from repo root:
 
-## Supabase migrations workflow
+- `supabase start`
+- `supabase db reset`
+- `supabase migration up`
 
-Use these Supabase CLI commands from the repository root:
+## Web routes
 
-- `supabase start` – boot local Supabase containers.
-- `supabase db reset` – recreate the local DB and replay migrations/seeds.
-- `supabase migration up` – apply any pending migrations.
+- `/`: dashboard placeholder
+- `/archives/upload`: PDF upload and ingestion
+- `/vessels/new`: vessel definition form
+- `/drafts/new`: draft generation form
+- `/drafts/[id]`: red-pen style editor
 
-## Workspace commands
+## Validation commands
 
-- `pnpm dev` – run development tasks.
-- `pnpm build` – build all apps/packages.
-- `pnpm lint` – lint workspace projects.
-- `pnpm test` – run tests.
-- `pnpm typecheck` – run type checking.
+- `pnpm build`
+- `pnpm lint`
+- `pnpm test`
+- `pnpm typecheck`

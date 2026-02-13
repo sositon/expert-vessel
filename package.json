@@ -13,6 +13,8 @@
     "format:write": "prettier --write ."
   },
   "devDependencies": {
-    "turbo": "^2.0.0"
+    "turbo": "^2.0.0",
+    "prettier": "^3.4.2",
+    "eslint": "^8.57.1"
   }
 }
