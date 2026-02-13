@@ -3,10 +3,13 @@
 @tailwind utilities;
 
 body {
-  background: #fafafa;
-  color: #111827;
+  background: #f1f5f9;
+  color: #0f172a;
 }
 
-main {
-  max-width: 72rem;
+input,
+textarea,
+select,
+button {
+  font: inherit;
 }
