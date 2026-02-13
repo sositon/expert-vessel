@@ -46,6 +46,14 @@ Monorepo scaffolded for Turborepo + pnpm workspaces with apps in `apps/*` and sh
    pnpm dev
    ```
 
+## Supabase migrations workflow
+
+Use these Supabase CLI commands from the repository root:
+
+- `supabase start` – boot local Supabase containers.
+- `supabase db reset` – recreate the local DB and replay migrations/seeds.
+- `supabase migration up` – apply any pending migrations.
+
 ## Workspace commands
 
 - `pnpm dev` – run development tasks.
